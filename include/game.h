@@ -3,8 +3,9 @@
 
 #include <iostream>
 #include <ncurses.h>
-#include <string>
 #include <random>
+#include <string>
+#include <vector>
 
 namespace cgame {
 
@@ -18,19 +19,25 @@ public:
 class Lane {
 private:
   int width;
-  std::string occupied;
+  std::default_random_engine generator;
+  std::bernoulli_distribution distribution{0.2};
+
 public:
   Lane(int width);
-  virtual ~Lane() {};
+  virtual ~Lane(){};
   void move_lane();
+  std::string occupied;
 };
 
 class Game {
 private:
-  bool quit {false};
+  int iterations{0};
+  bool quit{false};
+  bool win{false};
   int no_lanes;
   int width;
   Player player;
+  std::vector<Lane> lanes;
 
 public:
   void logic();

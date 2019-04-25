@@ -2,8 +2,8 @@
 
 using namespace cgame;
 
-void printstr(const std::string &str) {
-  for (char ch : str) {
+void printstr(const std::string &my_str) {
+  for (char ch : my_str) {
     addch(ch);
   }
 }

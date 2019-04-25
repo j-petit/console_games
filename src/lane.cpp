@@ -3,14 +3,17 @@
 
 using namespace cgame;
 
-Lane::Lane(int width) : width{width} { occupied.resize(width, ' '); }
+Lane::Lane(int width) : width{width} { 
+  occupied.resize(width, ' ');
+  generator.seed(rand());
+}
 
 void Lane::move_lane() {
-  std::default_random_engine generator;
-  std::bernoulli_distribution distribution(0.5);
 
   if (distribution(generator)) {
+    occupied = "o" + occupied.substr(0, occupied.length() - 1);
   }
   else {
+    occupied = " " + occupied.substr(0, occupied.length() - 1);
   }
 }
