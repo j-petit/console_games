@@ -1,12 +1,7 @@
 #include "game.h"
+#include <iostream>
 
 using namespace cgame;
-
-void printstr(const std::string &my_str) {
-  for (char ch : my_str) {
-    addch(ch);
-  }
-}
 
 void Banner::inc_pos() {
   if (pos < width) {

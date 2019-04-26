@@ -9,6 +9,12 @@
 
 namespace cgame {
 
+inline void printstr(const std::string &my_str) {
+  for (char ch : my_str) {
+    addch(ch);
+  }
+}
+
 class Player {
 public:
   int x, y;
