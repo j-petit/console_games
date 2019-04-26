@@ -1,8 +1,8 @@
 #include "game.h"
-#include <ncurses.h>
-#include <unistd.h>
-#include <thread>
 #include <mutex>
+#include <ncurses.h>
+#include <thread>
+#include <unistd.h>
 
 using namespace cgame;
 
@@ -38,7 +38,7 @@ void Game::draw() {
     i++;
     move(i, 0);
     printstr(lane.occupied);
-    //printstr("hello");
+    // printstr("hello");
   }
   mvaddch(player.y, player.x, 88);
   refresh();
@@ -78,12 +78,13 @@ void Game::run() {
 
   std::thread t1(&Game::lanes_move, this);
   t1.detach();
-  
+
   initscr();
   noecho();
   curs_set(0);
   timeout(0);
   while (!quit) {
+    usleep(1000);
     input();
     logic();
     draw();
@@ -105,7 +106,6 @@ Game::Game(int no_lanes, int width)
     : no_lanes{no_lanes}, width{width}, player{Player(width)} {
 
   for (int i = 0; i < no_lanes; i++) {
-
     lanes.push_back(Lane(width));
   }
 }
