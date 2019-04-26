@@ -9,11 +9,7 @@
 
 namespace cgame {
 
-inline void printstr(const std::string &my_str) {
-  for (char ch : my_str) {
-    addch(ch);
-  }
-}
+void printstr(const std::string & my_str);
 
 class Player {
 public:

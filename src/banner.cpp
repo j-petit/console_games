@@ -1,7 +1,15 @@
 #include "game.h"
 #include <iostream>
+#include <ncurses.h>
+#include <string>
 
 using namespace cgame;
+
+void cgame::printstr(const std::string &my_str) {
+  for (char ch : my_str) {
+    addch(ch);
+  }
+}
 
 void Banner::inc_pos() {
   if (pos < width) {

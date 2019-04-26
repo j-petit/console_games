@@ -1,5 +1,6 @@
 #include "game.h"
 #include <ncurses.h>
+#include <thread>
 
 using namespace cgame;
 
