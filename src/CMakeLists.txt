@@ -9,8 +9,11 @@ set(sources ../include/game.h ${project_sources})
 add_executable(cross_road_game ${sources})
 target_include_directories(cross_road_game PRIVATE ../include)
 target_link_libraries(cross_road_game ncurses)
+target_link_libraries(cross_road_game pthread)
 
 SET( CMAKE_EXPORT_COMPILE_COMMANDS ON )
+
+set(CMAKE_BUILD_TYPE Debug)
 
 
 IF( EXISTS "${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json" )

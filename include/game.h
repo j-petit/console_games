@@ -33,7 +33,6 @@ public:
 
 class Game {
 private:
-  int iterations{0};
   bool quit{false};
   bool win{false};
   int no_lanes;
@@ -45,6 +44,7 @@ public:
   void logic();
   void draw();
   void input();
+  void lanes_move();
   void run();
   Game(int no_lanes, int width);
   virtual ~Game(){};

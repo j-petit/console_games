@@ -1,6 +1,8 @@
 #include "game.h"
 #include <ncurses.h>
+#include <unistd.h>
 #include <thread>
+#include <mutex>
 
 using namespace cgame;
 
@@ -18,25 +20,26 @@ void Game::logic() {
     }
   }
 }
+void Game::lanes_move() {
+  std::mutex mtx;
+  while (!quit) {
+    for (Lane &lane : lanes) {
+      mtx.lock();
+      lane.move_lane();
+      mtx.unlock();
+    }
+    usleep(500000);
+  }
+}
 void Game::draw() {
   erase();
   int i = 0;
-  bool flag = false;
-  if (iterations == 20000) {
-    flag = true;
-    iterations = 0;
-  }
   for (Lane &lane : lanes) {
     i++;
-    if (flag) {
-      lane.move_lane();
-    }
     move(i, 0);
-    for (char ch : lane.occupied) {
-      addch(ch);
-    }
+    printstr(lane.occupied);
+    //printstr("hello");
   }
-  flag = false;
   mvaddch(player.y, player.x, 88);
   refresh();
 }
@@ -72,12 +75,15 @@ void Game::input() {
   }
 }
 void Game::run() {
+
+  std::thread t1(&Game::lanes_move, this);
+  t1.detach();
+  
   initscr();
   noecho();
   curs_set(0);
   timeout(0);
   while (!quit) {
-    iterations++;
     input();
     logic();
     draw();
