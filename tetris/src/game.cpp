@@ -85,7 +85,7 @@ void Game::start() {
 
 void Game::end() {
   erase();
-  mvprintw(0, 0, "You scored ");
+  mvprintw(0, 0, "Game over. You scored ");
   printw("%d", score);
   mvprintw(1, 0, "Press key to exit");
   timeout(-1);
@@ -156,6 +156,9 @@ void Game::new_active_block() {
     for (int j = 0; j < active_block->bounding_square_size; j++) {
       char value = active_block->get_value(i, j);
       if (value != ' ') {
+        if (active_block->origin_y + j == 0) {
+          quit = true;
+        }
         game_screen_v.at(active_block->origin_y +
                          j)[active_block->origin_x + i] = value;
       }
